@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,9 +27,16 @@ namespace EntityFrameworkConsole.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int? id)
         {
-            throw new NotImplementedException();
+            if (id is null) throw new ArgumentNullException(nameof(id));
+            var data = _context.Settings.FirstOrDefault(m => m.Id == id);
+            if (data is null)
+            {
+                throw new NotFoundException("data not found");
+            }
+             _context.Settings.Remove(data);
+            await _context.SaveChangesAsync();
         }
 
         public  async Task<List<Setting>> GetAllAsync()
@@ -46,9 +54,29 @@ namespace EntityFrameworkConsole.Services
             return data;
         }
 
-        public Task UpdateAsync(Setting setting)
+        public  async Task UpdateAsync(Setting setting)
         {
-            throw new NotImplementedException();
+            if (setting == null)
+            {
+                throw new ArgumentNullException(nameof(setting));
+            }
+
+            var existingSetting = await _context.Settings.FirstOrDefaultAsync(s => s.Id == setting.Id);
+
+            if (existingSetting == null)
+            {
+                throw new NotFoundException("Setting not found");
+            }
+
+            existingSetting.Name = setting.Name;
+            existingSetting.Address = setting.Address;
+            existingSetting.Email= setting.Email;
+            existingSetting.Phone = setting.Phone;
+
+            
+            await _context.SaveChangesAsync();
+            
         }
+        
     }
 }

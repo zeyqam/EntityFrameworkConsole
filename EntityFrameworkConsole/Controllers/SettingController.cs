@@ -51,6 +51,81 @@ namespace EntityFrameworkConsole.Controllers
             }
         }
 
+        public async Task CreateAsync()
+        {
+            Console.WriteLine("Add name:");
+            string name=Console.ReadLine();
+
+            Console.WriteLine("Add address:");
+            string address = Console.ReadLine();
+
+            Console.WriteLine("Add email:");
+            string email = Console.ReadLine();
+
+            Console.WriteLine("Add phone:");
+            string phone = Console.ReadLine();
+
+            
+            await _settingService.CreateAsync(new Setting { Name=name,Address=address,Email=email,Phone=phone});
+
+
+
+            
+        }
+
+        public async Task DeleteAsync()
+        {
+            Console.WriteLine("Add setting id:");
+            int id = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                 await _settingService.DeleteAsync(id);
+                Console.WriteLine("data deleted");
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public async Task UpdateAsync()
+        {
+            Console.WriteLine("Enter the id of the setting to update:");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            try
+            {
+                var existingSetting = await _settingService.GetByIdAsync(id);
+
+                Console.WriteLine("Enter the new name:");
+                string newName = Console.ReadLine();
+                existingSetting.Name = newName;
+
+                Console.WriteLine("Enter the new address:");
+                string newAddress = Console.ReadLine();
+                existingSetting.Address = newAddress;
+
+                Console.WriteLine("Enter the new email:");
+                string newEmail = Console.ReadLine();
+                existingSetting.Email = newEmail;
+
+                Console.WriteLine("Enter the new phone:");
+                string newPhone = Console.ReadLine();
+                existingSetting.Phone = newPhone;
+
+                await _settingService.UpdateAsync(existingSetting);
+                Console.WriteLine("Setting updated successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
 
 
     }

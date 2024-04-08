@@ -13,6 +13,6 @@ namespace EntityFrameworkConsole.Services.Interfaces
         Task<Setting> GetByIdAsync(int id);
         Task CreateAsync(Setting setting);
         Task UpdateAsync(Setting setting);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int? id);
     }
 }

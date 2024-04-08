@@ -29,5 +29,10 @@
 using EntityFrameworkConsole.Controllers;
 
 SettingController settingController = new SettingController();
-//await controller.GetAllAsync();
-await settingController.GetByIdAsync();
+await settingController.GetAllAsync();
+//await settingController.GetByIdAsync();
+//await settingController.CreateAsync();
+//await settingController.DeleteAsync();
+await settingController.UpdateAsync();
+
+await settingController.GetAllAsync();
