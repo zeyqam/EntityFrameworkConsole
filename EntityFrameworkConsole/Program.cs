@@ -28,11 +28,16 @@
 
 using EntityFrameworkConsole.Controllers;
 
-SettingController settingController = new SettingController();
-await settingController.GetAllAsync();
-//await settingController.GetByIdAsync();
-//await settingController.CreateAsync();
-//await settingController.DeleteAsync();
-await settingController.UpdateAsync();
+//SettingController settingController = new SettingController();
+//await settingController.GetAllAsync();
+////await settingController.GetByIdAsync();
+////await settingController.CreateAsync();
+////await settingController.DeleteAsync();
+//await settingController.UpdateAsync();
 
-await settingController.GetAllAsync();
+//await settingController.GetAllAsync();
+ CityController cityController = new CityController();
+ //await cityController.GetallByCountryId();
+await cityController.GetByIdAsync();
+//await cityController.UpdateCityAsync();
+//cityController.GetAllByCountryId();
